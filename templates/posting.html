@@ -1,0 +1,65 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+posting Form
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='contact.css')}}">
+{% endblock %}
+
+
+{% block content %}
+  <h2>Contact</h2>
+
+  {% if success %}
+    <p>Thank you. Your Job will be posted shortly.</p>
+
+  {% else %}
+
+    {% for message in form.Job_Requirements.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in form.Job_Duration.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in form.Job_Title.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    {% for message in form.Job_Pay.errors %}
+      <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    <form action="{{ url_for('posting') }}" method=post>
+      {{ form.hidden_tag() }}
+
+      {{ form.Job_Title.label }}
+      {{ form.Job_Title }}
+
+      {{ form.Job_Description.label }}
+      {{ form.Job_Description }}
+
+      {{ form.Job_Address.label }}
+      {{ form.Job_Address }}
+
+      {{ form.Job_Duration.label }}
+      {{ form.Job_Duration }}
+
+      {{ form.Job_Pay.label }}
+      {{ form.Job_Pay }}
+
+      {{ form.Opening.label }}
+      {{ form.Opening }}
+
+      {{ form.Job_Requirements.label }}
+      {{ form.Job_Requirements }}
+
+      {{ form.submit }}
+    </form>
+
+  {% endif %}
+{% endblock %}
